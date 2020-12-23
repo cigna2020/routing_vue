@@ -8,6 +8,9 @@
         :name="member.fullName"
         :role="member.role"
       ></user-item>
+      <!-- it doesn't work because Vue doesn't rebuild a page because of changing url address-->
+      <!-- to solve the problem watch: {$route(){...}} must be added-->
+      <router-link to="/teams/t2">Go to team 2</router-link>
     </ul>
   </section>
 </template>
@@ -26,18 +29,28 @@ export default {
       members: []
     };
   },
-  created() {
-    // console.log(this.$route.path);  // /teams/t1
-    const teamId = this.$route.params.teamId; // teamId - the dynamic path from main.js
-    const selectedTeam = this.teams.find(team => team.id === teamId);
-    const members = selectedTeam.members;
-    const selectedMembers = [];
-    for (const member of members) {
-      const selectedUser = this.users.find(user => user.id === member);
-      selectedMembers.push(selectedUser);
+  methods: {
+    async loadTeamMembers(route) {
+      // console.log(this.$route.path); // /teams/t1
+      const teamId = route.params.teamId; // teamId - the dynamic path from main.js
+      const selectedTeam = this.teams.find(team => team.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+      for (const member of members) {
+        const selectedUser = this.users.find(user => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+      this.members = await selectedMembers;
+      this.teamName = selectedTeam.name;
     }
-    this.teamName = selectedTeam.name;
-    this.members = selectedMembers;
+  },
+  created() {
+    this.loadTeamMembers(this.$route);
+  },
+  watch: {
+    $route(newRoute) {
+      this.loadTeamMembers(newRoute);
+    }
   }
 };
 </script>
