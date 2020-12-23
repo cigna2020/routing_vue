@@ -66,7 +66,10 @@ a {
 }
 
 a:hover,
-a:active {
+a:active,
+/* a default class of active link, but we changed it in main.js */
+/* a.router-link-active */
+a.active {
   color: #f1a80a;
   border-color: #f1a80a;
   background-color: #1a037e;
