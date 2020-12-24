@@ -12,7 +12,8 @@ const router = createRouter({
         {path: '/teams', component: TeamsList}, // url: our-domain/teams, content: TeamList
         {path: '/users', component: UsersList},
         // dynamic adding address. It should be at the end of the list
-        {path: '/teams/:teamId', component: TeamMembers}
+        // props: true - dynamic component should added as props, TeamMembers.vue, props: teamId
+        {path: '/teams/:teamId', component: TeamMembers, props: true}
     ],
     linkActiveClass: 'active',
 })

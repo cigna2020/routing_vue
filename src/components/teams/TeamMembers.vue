@@ -20,6 +20,7 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   inject: ['users', 'teams'],
+  props: ['teamId'],
   components: {
     UserItem
   },
@@ -30,9 +31,9 @@ export default {
     };
   },
   methods: {
-    async loadTeamMembers(route) {
+    loadTeamMembers(teamId) {
       // console.log(this.$route.path); // /teams/t1
-      const teamId = route.params.teamId; // teamId - the dynamic path from main.js
+      //   const teamId = route.params.teamId; // teamId - the dynamic path from main.js
       const selectedTeam = this.teams.find(team => team.id === teamId);
       const members = selectedTeam.members;
       const selectedMembers = [];
@@ -40,16 +41,16 @@ export default {
         const selectedUser = this.users.find(user => user.id === member);
         selectedMembers.push(selectedUser);
       }
-      this.members = await selectedMembers;
+      this.members = selectedMembers;
       this.teamName = selectedTeam.name;
     }
   },
   created() {
-    this.loadTeamMembers(this.$route);
+    this.loadTeamMembers(this.teamId);
   },
   watch: {
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    teamId(newId) {
+      this.loadTeamMembers(newId);
     }
   }
 };

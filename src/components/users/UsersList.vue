@@ -1,5 +1,7 @@
 <template>
-  <button @click="confirmItem">Link to the team</button>
+  <div class="link_button">
+    <button @click="confirmItem">Link to the team</button>
+  </div>
   <ul>
     <user-item
       v-for="user in users"
@@ -33,5 +35,18 @@ ul {
   margin: 2rem auto;
   max-width: 20rem;
   padding: 0;
+}
+.link_button {
+  display: flex;
+  margin-top: 20px;
+}
+
+button {
+  margin: 0 auto;
+  color: white;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: #11005c;
+  cursor: pointer;
 }
 </style>
