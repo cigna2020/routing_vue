@@ -14,7 +14,8 @@ export default {
       //   return '/teams/' + this.id; use a name property of path
       return {
         name: 'team-members',
-        params: { teamId: this.id }
+        params: { teamId: this.id },
+        query: { sort: 'asc' }
       };
     }
   }
