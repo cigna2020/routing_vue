@@ -35,13 +35,25 @@ const router = createRouter({
         {path: '/:notFound(.*)', component: NotFound} // if url doesn't exist
     ],
     linkActiveClass: 'active',
-    scrollBehavior(to, from, savePosition) {  // names of arguments are up to you
-        console.log(to, from, savePosition)
+    scrollBehavior(_, _2, savePosition) {  // names of arguments are up to you
+        // console.log(to, from, savePosition)
         if (savePosition) {         // checking if a user doesn't use 'go back (backspace etc.)'
             return savePosition
         }
         return {left: 0, top: 0}  // can be used only 'left' and 'top'
     }
+})
+
+router.beforeEach(function (to, from, next) {
+    console.log(to, from);
+    // next(false); // cancelled all navigation, we see nothing on a screen
+
+    // if (to.name === 'team-members') {    // redirect to /teams/t2
+    //     next()
+    // } else {
+    //     next({name: 'team-members', params: {teamId: 't2'}});
+    // }
+    next()
 })
 
 const app = createApp(App)
