@@ -6,6 +6,8 @@ import TeamsList from './components/teams/TeamsList';
 import UsersList from './components/users/UsersList';
 import TeamMembers from './components/teams/TeamMembers';
 import NotFound from './components/nav/NotFound';
+import TeamsFooter from './components/teams/TeamsFooter';
+import UserFooter from './components/users/UserFooter';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,11 +16,18 @@ const router = createRouter({
         // {path: '/teams', component: TeamsList, alias: '/'}, // alias doesn't change url and display TeamsList
         // {path: '/teams', component: TeamsList}, // url: our-domain/teams, content: TeamList
         {
-            name: 'teams', path: '/teams', component: TeamsList, children: [
+            name: 'teams',
+            path: '/teams',
+            // component: TeamsList,
+            components: {
+                default: TeamsList,
+                footer: TeamsFooter
+            },
+            children: [
                 {name: 'team-members', path: '/teams/:teamId', component: TeamMembers, props: true}
             ]
         },
-        {path: '/users', component: UsersList},
+        {path: '/users', components: {default: UsersList, footer: UserFooter}},
         // dynamic adding address. It should be at the end of the list
         // props: true - dynamic component should added as props, TeamMembers.vue, props: teamId
         // {path: '/teams/:teamId', component: TeamMembers, props: true}, // remove to TeamList as children
