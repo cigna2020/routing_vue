@@ -14,8 +14,8 @@ const router = createRouter({
         // {path: '/teams', component: TeamsList, alias: '/'}, // alias doesn't change url and display TeamsList
         // {path: '/teams', component: TeamsList}, // url: our-domain/teams, content: TeamList
         {
-            path: '/teams', component: TeamsList, children: [
-                {path: '/teams/:teamId', component: TeamMembers, props: true}
+            name: 'teams', path: '/teams', component: TeamsList, children: [
+                {name: 'team-members', path: '/teams/:teamId', component: TeamMembers, props: true}
             ]
         },
         {path: '/users', component: UsersList},
