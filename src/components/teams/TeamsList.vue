@@ -1,4 +1,6 @@
 <template>
+  <!-- router-view - display children of TeamList from main.js  -->
+  <router-view></router-view>
   <ul>
     <teams-item
       v-for="team in teams"
