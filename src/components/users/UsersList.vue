@@ -16,6 +16,11 @@
 import UserItem from './UserItem.vue';
 
 export default {
+  data() {
+    return {
+      someData: false
+    };
+  },
   components: {
     UserItem
   },
@@ -24,6 +29,16 @@ export default {
     confirmItem() {
       //   some code...
       this.$router.push('/teams');
+    }
+  },
+  beforeRouteLeave(_, _2, next) {
+    // leave-guard, can control if a user want to leave a page
+    // console.log(to, from);
+    if (this.someData) {
+      next();
+    } else {
+      const userQuestion = confirm('You want to leave?');
+      next(userQuestion);
     }
   }
 };

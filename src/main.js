@@ -44,8 +44,8 @@ const router = createRouter({
     }
 })
 
-router.beforeEach(function (to, from, next) {
-    console.log(to, from);
+router.beforeEach(function (_, _2, next) {
+    // console.log(to, from);
     // next(false); // cancelled all navigation, we see nothing on a screen
 
     // if (to.name === 'team-members') {    // redirect to /teams/t2
@@ -55,6 +55,13 @@ router.beforeEach(function (to, from, next) {
     // }
     next()
 })
+
+router.afterEach(function (to, from) {
+    // sending analytics data of user behaviour
+    // contain every navigation action
+    console.log(to, from)
+});
+
 
 const app = createApp(App)
 
